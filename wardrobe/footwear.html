@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footwear</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Footwear</h1>
+        <a href="wardrobe.html" class="back-button">Back</a>
+    </header>
+
+    <main class="footwear-content">
+        <h2>My Footwear</h2>
+
+        <div class="footwear-list" id="footwearList">
+            <div class="item">
+                <span>Formal Shoes</span>
+                <button>Delete Item</button>
+                <span><a href="formalshos.html">Formal Shoes</a></span>
+            </div>
+            <div class="item">
+                <span>Sneakers</span>
+                <button>Delete Item</button>
+                <span><a href="sneakers.html">Sneakers</a></span>
+            </div>
+            <div class="item">
+                <span>Boots</span>
+                <button>Delete Item</button>
+                <span><a href="boots.html">Boots</a></span>
+            </div>
+            <!-- Add more items as needed -->
+        </div>
+
+        <div class="add-item">
+            <input type="text" id="newFootwearInput" placeholder="Enter new footwear name">
+            <button id="addFootwearButton">Add New Footwear</button>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const footwearList = document.getElementById('footwearList');
+            const addFootwearButton = document.getElementById('addFootwearButton');
+            const newFootwearInput = document.getElementById('newFootwearInput');
+
+            // Handle adding new footwear
+            addFootwearButton.addEventListener("click", function() {
+                const newFootwearName = newFootwearInput.value.trim();
+
+                if (newFootwearName) {
+                    // Create a new footwear div with delete button
+                    const newFootwearDiv = document.createElement('div');
+                    newFootwearDiv.classList.add('item');
+                    newFootwearDiv.innerHTML = `
+                        <span>${newFootwearName}</span>
+                        <button>Delete Item</button>
+                    `;
+
+                    // Add the new footwear to the footwear list
+                    footwearList.appendChild(newFootwearDiv);
+
+                    // Clear the input field
+                    newFootwearInput.value = '';
+                }
+            });
+
+            // Event delegation to delete footwear dynamically
+            footwearList.addEventListener("click", function(e) {
+                if (e.target.tagName === "BUTTON") {
+                    const item = e.target.parentElement;
+                    item.remove(); // Remove the clicked item
+                }
+            });
+        });
+    </script>
+</body>
+</html>

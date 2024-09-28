@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.time {
+    font-size: 18px;
+}
+
+.profile-section {
+    text-align: center;
+}
+
+.upload-image {
+    margin: 20px 0;
+}
+
+.circle {
+    width: 100px;
+    height: 100px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.button-creative {
+    background-color: #06de26; /* Dark Red Color */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    
+    /* Adding some creativity with shadow and transition */
+    box-shadow: 0px 10px 15px #048f0b(32, 179, 2, 0.5);
+    border-radius: 25px;
+    transition: transform 0.2s;
+}
+
+.button-creative:hover {
+    background-color: #098a1c; /* A darker shade for hover effect */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}

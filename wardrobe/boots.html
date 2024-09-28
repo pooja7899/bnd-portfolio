@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boots</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Boots</h1>
+        <a href="wardrobe.html" class="back-button">Back to Wardrobe</a>
+    </header>
+
+    <main class="boots-content">
+        <h2>Add New Boot</h2>
+        <div class="upload-section">
+            <input type="file" id="fileInput" accept="image/*" />
+            <button id="uploadButton">Upload Picture</button>
+        </div>
+
+        <h2>Uploaded Boots</h2>
+        <div id="shoeGallery" class="shoe-gallery">
+            <!-- Images will be dynamically added here -->
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('uploadButton').addEventListener('click', function() {
+            const fileInput = document.getElementById('fileInput');
+            const shoeGallery = document.getElementById('shoeGallery');
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.classList.add('shoe-image');
+                shoeGallery.appendChild(img);
+
+                // Clear the file input
+                fileInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>

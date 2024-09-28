@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Multiple Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .upload-container {
+            margin-top: 50px;
+        }
+        .upload-container button {
+            padding: 10px 20px;
+            background-color: #08c832;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .upload-container button:hover {
+            background-color: #0fdb4c;
+        }
+        .uploaded-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .uploaded-images div {
+            position: relative;
+            margin: 10px;
+        }
+        .uploaded-images img {
+            width: 150px; /* Set consistent image width */
+            height: 150px; /* Set consistent image height */
+            object-fit: cover; /* Crop images to fit */
+            border: 1px solid #ccc;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #ffcccb; /* Light pink color */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 3px 8px; /* Smaller padding */
+            font-size: 12px; /* Decreased font size */
+        }
+        .delete-btn:hover {
+            background-color: #ff9999; /* Slightly darker pink on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="categoryTitle">Upload Your Images</h1>
+
+    <div class="upload-container">
+        <button onclick="triggerFileInput()">Upload Images</button>
+        <input type="file" id="fileInput" accept="image/*" multiple style="display: none;" onchange="displayImages(event)">
+    </div>
+
+    <div class="uploaded-images" id="uploadedImages"></div>
+
+    <script>
+        // Set the current category based on URL parameters
+        const params = new URLSearchParams(window.location.search);
+        const category = params.get('category') || 'Default'; // Default value if null
+        document.getElementById('categoryTitle').innerText = category + " - Upload Your Images";
+
+        // Load images from localStorage when the page loads
+        window.onload = function() {
+            loadImages();
+        };
+
+        // Load images from localStorage based on category
+        function loadImages() {
+            const storedImages = JSON.parse(localStorage.getItem(category)) || []; // Use category as key
+            const uploadedImagesContainer = document.getElementById('uploadedImages');
+            uploadedImagesContainer.innerHTML = '';
+
+            storedImages.forEach((image, index) => {
+                const imgWrapper = document.createElement('div');
+                const imgElement = document.createElement('img');
+                imgElement.src = image;
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.innerText = 'X';
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.onclick = function() {
+                    deleteImage(index);
+                };
+
+                imgWrapper.appendChild(imgElement);
+                imgWrapper.appendChild(deleteBtn);
+                uploadedImagesContainer.appendChild(imgWrapper);
+            });
+        }
+
+        // Trigger file input
+        function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
+
+        // Display uploaded images
+        function displayImages(event) {
+            const files = event.target.files;
+            const storedImages = JSON.parse(localStorage.getItem(category)) || []; // Use category as key
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    storedImages.push(e.target.result); // Store the image in the array
+                    localStorage.setItem(category, JSON.stringify(storedImages)); // Save to localStorage
+                    loadImages(); // Refresh the displayed images
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Delete an image
+        function deleteImage(index) {
+            const storedImages = JSON.parse(localStorage.getItem(category)) || []; // Use category as key
+            storedImages.splice(index, 1); // Remove the image at the specified index
+            localStorage.setItem(category, JSON.stringify(storedImages)); // Update localStorage
+            loadImages(); // Refresh the displayed images
+        }
+    </script>
+</body>
+</html>

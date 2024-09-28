@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="box">
+    <div class="form">
+      <h2>Login Form</h2>
+      <form id="form"> <!-- Added ID to the form -->
+        <div class="inputbox">
+          <input type="text" id="Username" required> <!-- Corrected the ID -->
+          <span>Username</span>
+        </div>
+        <div class="inputbox">
+          <input type="email" id="Email" required> <!-- Corrected the ID -->
+          <span>Email</span>
+        </div>
+        <div class="inputbox">
+          <input type="text" id="Phone" required> <!-- Removed unnecessary div and ensured correct ID -->
+          <span>Phone Number</span>
+        </div>
+        <input type="submit" value="Submit" class="sub"> <!-- Removed unnecessary ID -->
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBIWnU57-QHvN2clu2-29YGz-15-lG13AU",
+      authDomain: "wardrobemanage-5e332.firebaseapp.com",
+      projectId: "wardrobemanage-5e332",
+      storageBucket: "wardrobemanage-5e332.appspot.com",
+      messagingSenderId: "448629051668",
+      appId: "1:448629051668:web:45bd2f1cc17444d7193201",
+      measurementId: "G-126D9XP2TJ"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Event listener for form submission
+    document.getElementById("form").addEventListener('submit', function(e) {
+      // Prevent the default form submission behavior
+      e.preventDefault();
+
+      // Save data to Firebase Realtime Database
+      set(ref(db, 'user/' + document.getElementById("Username").value), {
+        username: document.getElementById("Username").value,
+        email: document.getElementById("Email").value,
+        phoneNumber: document.getElementById("Phone").value
+      });
+
+      alert("Login Successful!");
+    });
+  </script>
+</body>
+</html>

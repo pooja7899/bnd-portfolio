@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wardrobe App</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Baby pink background */
+        body {
+            background-color: #038d33;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        /* Header styling */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: linear-gradient(to right, #028c07, #037616);
+            color: white;
+        }
+
+        .header .icon {
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .login-button {
+            background-color: #07ba1f; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .login-button:hover {
+            background-color: #058a14;
+        }
+
+        .center-title {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        /* Main content area */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 180px); /* Adjusted height for footer */
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Center the image */
+        .center-image img {
+            max-width: 25%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Interesting content text */
+        .interesting-content {
+            font-size: 24px;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .modal-content button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px auto;
+            padding: 15px 30px;
+            background-color: #2bb604;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content button:hover {
+            background-color:#0ec511;
+        }
+
+        .option-icon {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #f1f1f1;
+            padding: 10px 0;
+            box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #333;
+        }
+
+        .nav-item.active .icon {
+            color: #06af2b;
+        }
+
+        .nav-item .icon {
+            display: block;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item .label {
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="left-icons">
+            <div class="info-icon icon"></div>
+        </div>
+        <div class="center-title">Fashion</div>
+        <div class="right-icons">
+            <div class="switch-camera-icon icon" id="switchCameraIcon">🔄</div>
+            <!-- Added login button -->
+            <a href="login/index.html" class="login-button">Login</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="center-image">
+            <img src="logo.jpeg" alt="centered image">
+        </div>
+        <p class="interesting-content">
+            Style Inspiration at Your Fingertips: Rediscover Your Favorites!
+        </p>
+    </main>
+
+    <footer class="footer">
+        <nav class="nav-bar">
+            <a href="wardrobe/wardrobe.html" class="nav-item active">
+                <span class="icon">👕</span>
+                <span class="label">Wardrobe</span>
+            </a>
+            <a href="#" class="nav-item" id="outfitsBtn">
+                <span class="icon">👗</span>
+                <span class="label">Outfits</span>
+            </a>
+            <a href="Profile/profile.html" class="nav-item">
+                <span class="icon">👤</span>
+                <span class="label">My Profile</span>
+            </a>
+            <a href="community/index.html" class="nav-item">
+                <span class="icon">👥</span>
+                <span class="label">Community</span>
+            </a>
+        </nav>
+    </footer>
+
+    <!-- Modal for outfit options -->
+    <div id="outfitModal" class="modal">
+        <div class="modal-content">
+            <h2>Select Outfit Category</h2>
+            <button onclick="selectOutfit('Casual Outfits')">
+                <span class="option-icon">👖</span>Casual Outfits
+            </button>
+            <button onclick="selectOutfit('Formal Outfits')">
+                <span class="option-icon">👔</span>Formal Outfits
+            </button>
+            <button onclick="selectOutfit('Party Wear')">
+                <span class="option-icon">🎉</span>Party Wear
+            </button>
+            <button onclick="selectOutfit('Traditional')">
+                <span class="option-icon">👘</span>Traditional
+            </button>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById("outfitModal");
+        const outfitsBtn = document.getElementById("outfitsBtn");
+
+        outfitsBtn.onclick = function () {
+            modal.classList.add('show');
+        }
+
+        function closeModal() {
+            modal.classList.remove('show');
+        }
+
+        // Redirect to upload page with selected category
+        function selectOutfit(category) {
+            window.location.href = `upload.html?category=${encodeURIComponent(category)}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wardrobe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>My Wardrobe</h1>
+        <a href="../index.html" class="back-button">Back</a>
+    </header>
+
+    <main class="wardrobe-content">
+        <h2>Categories</h2>
+        <div class="categories">
+            <div class="category"><a href="../index.html">Clothes</a> </div>
+            <div class="category"><a href="../accessories/index.html">Accessories</a></div>
+            <div class="category">
+                <a href="footwear.html" class="category-link">Footwear</a>
+            </div>
+        </div>
+
+        <h2>My Items</h2>
+        <div class="items" id="itemList">
+            <div class="item">
+                <span>Formal Suit</span>
+                <button class="delete-item">Delete Item</button>
+            </div>
+            <div class="item">
+                <span>Casual Shirt</span>
+                <button class="delete-item">Delete Item</button>
+            </div>
+        </div>
+
+        <div class="add-item">
+            <input type="text" id="newItemInput" placeholder="Enter item name">
+            <button id="addItemButton">Add New Item</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
